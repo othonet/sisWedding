@@ -7,7 +7,7 @@ window.WEDDING = {
   date: '2026-10-31T12:00:00-03:00',
   // Duração prevista, em horas (usada no "Adicionar à agenda")
   durationHours: 5,
-  blessing: 'Com a bênção de Deus e de nossos pais',
+  blessing: 'Com a bênção de Deus e o carinho de quem amamos',
   invitationText: 'convidam você para o almoço de celebração do seu casamento',
   venue: {
     name: 'Chácara Zélia Ramos',

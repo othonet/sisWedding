@@ -255,7 +255,9 @@ a { color: var(--gold-light); }
   font-style: italic;
   font-size: 1.05rem;
   color: var(--text-soft);
-  margin: 0;
+  margin: 0 auto;
+  max-width: 300px;
+  text-wrap: balance;
 }
 .names {
   font-family: var(--font-script);
