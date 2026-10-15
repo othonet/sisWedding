@@ -1,0 +1,251 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="theme-color" content="#0b3326">
+  <title>Convite de Casamento</title>
+  <meta name="description" content="Convite para o almoço de casamento e lista de presentes.">
+  <meta property="og:title" content="Você está convidado(a)!">
+  <meta property="og:description" content="Convite para o almoço de casamento e lista de presentes.">
+  <link rel="icon" href="img/calla.svg" type="image/svg+xml">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400&family=Great+Vibes&family=Jost:wght@300;400;500&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+  <!-- Desenhos reutilizáveis: copo de leite, folha e ícones -->
+  <svg width="0" height="0" style="position:absolute" aria-hidden="true">
+    <defs>
+      <linearGradient id="gSpathe" x1="0" y1="0" x2="0.4" y2="1">
+        <stop offset="0" stop-color="#ffffff"/>
+        <stop offset="0.55" stop-color="#f8f5ea"/>
+        <stop offset="0.85" stop-color="#e3ecd9"/>
+        <stop offset="1" stop-color="#9fc4a6"/>
+      </linearGradient>
+      <linearGradient id="gFront" x1="0" y1="0" x2="1" y2="1">
+        <stop offset="0" stop-color="#ffffff"/>
+        <stop offset="1" stop-color="#eef3e6"/>
+      </linearGradient>
+      <linearGradient id="gThroat" x1="0" y1="0" x2="0" y2="1">
+        <stop offset="0" stop-color="#e9e1c8" stop-opacity="0.9"/>
+        <stop offset="1" stop-color="#cbd9b9" stop-opacity="0.9"/>
+      </linearGradient>
+      <linearGradient id="gGold" x1="0" y1="0" x2="1" y2="1">
+        <stop offset="0" stop-color="#fbe9a8"/>
+        <stop offset="0.5" stop-color="#e0b44d"/>
+        <stop offset="1" stop-color="#a87a22"/>
+      </linearGradient>
+      <linearGradient id="gStem" x1="0" y1="0" x2="1" y2="0">
+        <stop offset="0" stop-color="#2d6e50"/>
+        <stop offset="0.5" stop-color="#5fa47f"/>
+        <stop offset="1" stop-color="#2a6249"/>
+      </linearGradient>
+      <linearGradient id="gLeaf" x1="0" y1="0" x2="1" y2="0">
+        <stop offset="0" stop-color="#1f5a40"/>
+        <stop offset="0.5" stop-color="#4f9671"/>
+        <stop offset="1" stop-color="#1b4d37"/>
+      </linearGradient>
+
+      <symbol id="calla" viewBox="0 0 120 300">
+        <path d="M60 298 C 59 250, 61 190, 60 128" stroke="url(#gStem)" stroke-width="5" fill="none" stroke-linecap="round"/>
+        <path d="M58 132 C 42 114, 36 86, 41 60 C 46 34, 63 16, 86 9 C 98 5, 110 8, 116 14 C 105 19, 97 27, 93 39 C 88 56, 86 78, 80 98 C 75 114, 68 126, 58 132Z" fill="url(#gSpathe)"/>
+        <path d="M63 38 C 71 24, 82 15, 98 10 C 92 22, 88 40, 85 60 C 81 82, 74 102, 66 118 C 59 96, 56 60, 63 38Z" fill="url(#gThroat)"/>
+        <path d="M70 110 C 66 92, 64 66, 69 45 C 71 38, 76 38, 77 45 C 80 66, 77 92, 70 110Z" fill="url(#gGold)"/>
+        <path d="M58 132 C 42 114, 36 86, 41 60 C 46 34, 63 16, 86 9 C 71 22, 59 40, 55 64 C 51 90, 52 114, 58 132Z" fill="url(#gFront)"/>
+        <path d="M86 9 C 98 5, 110 8, 116 14 C 108 14, 100 15, 93 19 C 91 15, 89 12, 86 9Z" fill="#ffffff"/>
+        <path d="M49 120 C 53 130, 57 135, 60 142 C 63 136, 67 130, 71 120 C 67 127, 63 129, 60 129 C 56 129, 52 126, 49 120Z" fill="#3f8a68"/>
+      </symbol>
+
+      <symbol id="leaf" viewBox="0 0 60 200">
+        <path d="M30 200 C 6 150, -2 86, 30 0 C 62 86, 54 150, 30 200Z" fill="url(#gLeaf)"/>
+        <path d="M30 196 C 29 140, 30 70, 30 8" stroke="#8cc3a3" stroke-opacity="0.55" stroke-width="1.4" fill="none"/>
+      </symbol>
+
+      <symbol id="bouquet" viewBox="0 0 240 320">
+        <g transform="rotate(-34 120 312)"><use href="#leaf" x="98" y="110" width="44" height="200"/></g>
+        <g transform="rotate(30 120 312)"><use href="#leaf" x="100" y="120" width="40" height="190"/></g>
+        <g class="sway s2" transform="rotate(-22 120 312)"><use href="#calla" x="65" y="36" width="110" height="275"/></g>
+        <g class="sway s3" transform="rotate(21 120 312)"><use href="#calla" x="70" y="56" width="100" height="250"/></g>
+        <g class="sway s1"><use href="#calla" x="60" y="10" width="120" height="300"/></g>
+        <path d="M104 262 C 92 250, 78 252, 80 262 C 82 272, 98 270, 112 266 C 126 270, 142 272, 144 262 C 146 252, 132 250, 120 262Z" fill="url(#gGold)"/>
+        <path d="M112 266 C 106 280, 100 292, 92 304 M120 266 C 126 280, 134 292, 144 302" stroke="url(#gGold)" stroke-width="4" fill="none" stroke-linecap="round"/>
+        <rect x="109" y="258" width="14" height="14" rx="4" fill="#c99a3c"/>
+      </symbol>
+
+      <symbol id="i-diamond" viewBox="0 0 24 24"><path d="M12 2l4 10-4 10-4-10z" fill="currentColor"/></symbol>
+      <symbol id="i-gift" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="8" width="18" height="4" rx="1"/><path d="M5 12v8a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1v-8M12 8v13M12 8c-1.5-3-5-4.5-6-2.5S8.5 8 12 8zM12 8c1.5-3 5-4.5 6-2.5S15.5 8 12 8z"/></g></symbol>
+      <symbol id="i-check" viewBox="0 0 24 24"><path d="M5 12.5l4.5 4.5L19 7.5" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></symbol>
+      <symbol id="i-pin" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M12 21s-7-6.2-7-11.5a7 7 0 0 1 14 0C19 14.8 12 21 12 21z"/><circle cx="12" cy="9.5" r="2.5"/></g></symbol>
+      <symbol id="i-calendar" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"><rect x="3.5" y="5" width="17" height="15.5" rx="2.5"/><path d="M3.5 10h17M8 3v4M16 3v4"/></g></symbol>
+      <symbol id="i-nav" viewBox="0 0 24 24"><path d="M21 3L3 10.5l7.5 3 3 7.5z" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"/></symbol>
+      <symbol id="i-arrow" viewBox="0 0 24 24"><path d="M5 12h14M13 6l6 6-6 6" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></symbol>
+      <symbol id="i-back" viewBox="0 0 24 24"><path d="M19 12H5M11 6l-6 6 6 6" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></symbol>
+      <symbol id="i-share" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M12 15V3M7 8l5-5 5 5"/><path d="M5 12v7a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2v-7"/></g></symbol>
+    </defs>
+  </svg>
+
+  <div class="ambient" aria-hidden="true">
+    <div class="orb o1"></div>
+    <div class="orb o2"></div>
+    <div class="orb o3"></div>
+    <svg class="lily-bg l1" viewBox="0 0 120 300"><use href="#calla"/></svg>
+    <svg class="lily-bg l2" viewBox="0 0 120 300"><use href="#calla"/></svg>
+  </div>
+
+  <main class="app">
+    <!-- 1. Convite -->
+    <section class="screen active" id="screen-invite" aria-label="Convite">
+      <article class="invite glass">
+        <div class="frame"></div>
+        <svg class="bouquet" viewBox="0 0 240 320" role="img" aria-label="Buquê de copos de leite"><use href="#bouquet"/></svg>
+        <p class="eyebrow" data-bind="blessing"></p>
+        <h1 class="names gold-text"><span data-bind="bride"></span><span class="amp">&amp;</span><span data-bind="groom"></span></h1>
+        <p class="invite-text" data-bind="invitationText"></p>
+
+        <div class="date-block">
+          <div class="side" data-bind="weekday"></div>
+          <div class="day gold-text" data-bind="day"></div>
+          <div class="side" data-bind="time"></div>
+          <div class="month-year" data-bind="monthYear"></div>
+        </div>
+
+        <div class="divider"><svg><use href="#i-diamond"/></svg></div>
+
+        <p class="venue-line"><strong data-bind="venueName"></strong><span data-bind="venueAddress"></span></p>
+
+        <div class="invite-actions">
+          <button class="btn btn-gold" data-go="identify">
+            <svg><use href="#i-gift"/></svg> Lista de presentes
+          </button>
+          <a class="btn btn-glass" id="invite-map-link" target="_blank" rel="noopener">
+            <svg><use href="#i-pin"/></svg> Ver o local
+          </a>
+        </div>
+        <p class="invite-note" data-bind="dressCode"></p>
+      </article>
+    </section>
+
+    <!-- 2. Identificação -->
+    <section class="screen" id="screen-identify" aria-label="Identificação">
+      <form class="panel glass" id="identify-form" novalidate>
+        <svg class="panel-lily" viewBox="0 0 120 300" aria-hidden="true"><use href="#calla"/></svg>
+        <h2 class="title-script gold-text">Que alegria ter você!</h2>
+        <p class="subtitle">Antes de escolher seu presente, conte para a gente quem é você.</p>
+
+        <div class="field">
+          <input id="first-name" name="firstName" autocomplete="given-name" placeholder=" " maxlength="60" required>
+          <label for="first-name">Nome</label>
+        </div>
+        <div class="field">
+          <input id="last-name" name="lastName" autocomplete="family-name" placeholder=" " maxlength="80" required>
+          <label for="last-name">Sobrenome</label>
+        </div>
+        <p class="form-error" id="identify-error" role="alert"></p>
+
+        <button class="btn btn-gold btn-block" type="submit">
+          Continuar <svg><use href="#i-arrow"/></svg>
+        </button>
+        <button class="btn btn-link" type="button" data-go="invite">
+          <svg><use href="#i-back"/></svg> Voltar ao convite
+        </button>
+      </form>
+    </section>
+
+    <!-- 3. Lista de presentes -->
+    <section class="screen" id="screen-gifts" aria-label="Lista de presentes">
+      <header class="topbar">
+        <div>
+          <p class="hello">Olá,<strong class="gold-text" id="guest-first-name"></strong></p>
+          <button class="switch-guest" id="switch-guest" type="button">Não é você? Trocar</button>
+        </div>
+        <button class="icon-btn" data-go="invite" aria-label="Voltar ao convite"><svg><use href="#i-back"/></svg></button>
+      </header>
+
+      <div class="gifts-intro glass">
+        Escolha um ou mais presentes da nossa <b>lista de desejos</b>.
+        Itens com várias unidades podem ser presenteados por mais de um convidado.
+      </div>
+
+      <div class="already glass" id="already" hidden>
+        <h3>Você já nos presenteou com</h3>
+        <ul id="already-list"></ul>
+      </div>
+
+      <div class="filters" role="group" aria-label="Filtrar presentes">
+        <button class="chip" data-filter="available" aria-pressed="true">Disponíveis</button>
+        <button class="chip" data-filter="selected" aria-pressed="false">Selecionados</button>
+        <button class="chip" data-filter="all" aria-pressed="false">Todos</button>
+      </div>
+
+      <div class="gift-grid" id="gift-grid" aria-live="polite"></div>
+      <div class="gifts-spacer"></div>
+    </section>
+
+    <!-- 4. Agradecimento + almoço -->
+    <section class="screen" id="screen-thanks" aria-label="Agradecimento">
+      <article class="thanks glass">
+        <svg class="bouquet" viewBox="0 0 240 320" aria-hidden="true"><use href="#bouquet"/></svg>
+        <h2 class="title-script gold-text">Obrigado, <span id="thanks-name"></span>!</h2>
+        <p class="subtitle" data-bind="thanksMessage"></p>
+
+        <div class="gift-recap">
+          <h3>Seu presente</h3>
+          <ul id="thanks-list"></ul>
+        </div>
+
+        <div class="divider"><svg><use href="#i-diamond"/></svg></div>
+
+        <section class="lunch">
+          <h3>Esperamos você no almoço</h3>
+          <div class="lunch-card">
+            <div><small>Data</small><span data-bind="dateShort"></span></div>
+            <div><small>Horário</small><span data-bind="time"></span></div>
+            <div class="full"><small>Local</small><span data-bind="venueName"></span></div>
+          </div>
+          <div class="map-wrap">
+            <iframe id="map-frame" title="Mapa do local do almoço" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+          </div>
+          <p class="venue-line" data-bind="venueAddress"></p>
+          <div class="map-actions">
+            <a class="btn btn-gold" id="gmaps-link" target="_blank" rel="noopener"><svg><use href="#i-pin"/></svg> Google Maps</a>
+            <a class="btn btn-glass" id="waze-link" target="_blank" rel="noopener"><svg><use href="#i-nav"/></svg> Waze</a>
+            <button class="btn btn-glass full" id="calendar-btn"><svg><use href="#i-calendar"/></svg> Adicionar à agenda</button>
+          </div>
+        </section>
+
+        <button class="btn btn-link" data-go="gifts" style="margin-top:14px">
+          <svg><use href="#i-gift"/></svg> Escolher mais presentes
+        </button>
+      </article>
+      <footer class="signature"><span data-bind="bride"></span> &amp; <span data-bind="groom"></span></footer>
+    </section>
+  </main>
+
+  <!-- Barra de seleção -->
+  <div class="cart-bar glass" id="cart-bar">
+    <div class="count" id="cart-count"></div>
+    <button class="btn btn-gold" id="cart-continue">Confirmar <svg><use href="#i-arrow"/></svg></button>
+  </div>
+
+  <!-- Confirmação -->
+  <div class="sheet-backdrop" id="confirm-sheet" aria-hidden="true">
+    <div class="sheet glass" role="dialog" aria-modal="true" aria-labelledby="confirm-title">
+      <div class="grabber"></div>
+      <h2 class="gold-text" id="confirm-title">Confirmar presentes</h2>
+      <p class="subtitle">Confira sua escolha. Depois de confirmados, eles ficam reservados em seu nome.</p>
+      <ul class="summary-list" id="confirm-list"></ul>
+      <div class="sheet-actions">
+        <button class="btn btn-gold" id="confirm-btn">Confirmar presentes</button>
+        <button class="btn btn-link" id="confirm-cancel">Continuar escolhendo</button>
+      </div>
+    </div>
+  </div>
+
+  <div class="toast glass" id="toast" role="status" aria-live="assertive"></div>
+
+  <script src="js/config.js"></script>
+  <script src="js/app.js"></script>
+</body>
+</html>

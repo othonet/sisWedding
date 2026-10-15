@@ -1,0 +1,20 @@
+{
+  "name": "siswedding",
+  "version": "1.0.0",
+  "description": "Convite de casamento digital com lista de presentes",
+  "type": "module",
+  "scripts": {
+    "dev": "node --watch dev-server.js",
+    "start": "node dev-server.js"
+  },
+  "engines": {
+    "node": ">=20"
+  },
+  "dependencies": {
+    "pg": "^8.23.1"
+  },
+  "devDependencies": {
+    "@electric-sql/pglite": "^0.5.10",
+    "express": "^5.3.0"
+  }
+}

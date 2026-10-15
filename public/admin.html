@@ -1,0 +1,123 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="theme-color" content="#0b3326">
+  <meta name="robots" content="noindex">
+  <title>Painel dos Noivos</title>
+  <link rel="icon" href="img/calla.svg" type="image/svg+xml">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500;600&family=Great+Vibes&family=Jost:wght@300;400;500&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/style.css">
+  <link rel="stylesheet" href="css/admin.css">
+</head>
+<body>
+  <svg width="0" height="0" style="position:absolute" aria-hidden="true">
+    <defs>
+      <symbol id="i-refresh" viewBox="0 0 24 24"><path d="M20 11a8 8 0 1 0-2.3 5.7M20 4v7h-7" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/></symbol>
+      <symbol id="i-logout" viewBox="0 0 24 24"><path d="M15 4h3a2 2 0 0 1 2 2v12a2 2 0 0 1-2 2h-3M10 17l5-5-5-5M15 12H3" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/></symbol>
+      <symbol id="i-download" viewBox="0 0 24 24"><path d="M12 3v12M7 10l5 5 5-5M5 21h14" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/></symbol>
+      <symbol id="i-plus" viewBox="0 0 24 24"><path d="M12 5v14M5 12h14" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></symbol>
+      <symbol id="i-x" viewBox="0 0 24 24"><path d="M6 6l12 12M18 6L6 18" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></symbol>
+      <symbol id="i-search" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"><circle cx="11" cy="11" r="6.5"/><path d="M20 20l-4-4"/></g></symbol>
+    </defs>
+  </svg>
+
+  <div class="ambient" aria-hidden="true">
+    <div class="orb o1"></div>
+    <div class="orb o2"></div>
+  </div>
+
+  <!-- Login -->
+  <main class="app" id="login-view">
+    <form class="panel glass" id="login-form">
+      <img class="panel-lily" src="img/calla.svg" alt="" style="width:56px;height:auto;border-radius:14px">
+      <h1 class="title-script gold-text">Painel dos noivos</h1>
+      <p class="subtitle">Acompanhe quem já confirmou e os presentes escolhidos.</p>
+      <div class="field">
+        <input id="password" type="password" autocomplete="current-password" placeholder=" " required>
+        <label for="password">Senha</label>
+      </div>
+      <p class="form-error" id="login-error" role="alert"></p>
+      <button class="btn btn-gold btn-block" type="submit">Entrar</button>
+    </form>
+  </main>
+
+  <!-- Painel -->
+  <main class="app admin" id="dash-view" hidden>
+    <header class="admin-head">
+      <div>
+        <p class="eyebrow">Painel de acompanhamento</p>
+        <h1 class="title-script gold-text" id="couple"></h1>
+      </div>
+      <div class="head-actions">
+        <button class="icon-btn" id="refresh" aria-label="Atualizar"><svg><use href="#i-refresh"/></svg></button>
+        <button class="icon-btn" id="logout" aria-label="Sair"><svg><use href="#i-logout"/></svg></button>
+      </div>
+    </header>
+
+    <section class="stats">
+      <div class="stat glass"><small>Convidados</small><b id="st-guests">–</b><span id="st-guests-sub"></span></div>
+      <div class="stat glass"><small>Presentes escolhidos</small><b id="st-units">–</b><span id="st-units-sub"></span></div>
+      <div class="stat glass"><small>Itens esgotados</small><b id="st-soldout">–</b><span id="st-soldout-sub"></span></div>
+      <div class="stat glass"><small>Valor estimado</small><b id="st-value">–</b><span>dos presentes escolhidos</span></div>
+    </section>
+
+    <nav class="tabs glass" role="tablist">
+      <button role="tab" class="tab" data-tab="guests" aria-selected="true">Convidados</button>
+      <button role="tab" class="tab" data-tab="gifts" aria-selected="false">Presentes</button>
+    </nav>
+
+    <!-- Convidados -->
+    <section class="tab-panel" id="tab-guests">
+      <div class="toolbar">
+        <label class="search glass">
+          <svg><use href="#i-search"/></svg>
+          <input id="guest-search" type="search" placeholder="Buscar convidado ou presente">
+        </label>
+        <button class="btn btn-glass" id="export-csv"><svg><use href="#i-download"/></svg> CSV</button>
+      </div>
+      <div id="guest-list" class="guest-list"></div>
+    </section>
+
+    <!-- Presentes -->
+    <section class="tab-panel" id="tab-gifts" hidden>
+      <div class="toolbar">
+        <p class="hint">Estoque da lista de desejos. Toque em um presente para editar.</p>
+        <button class="btn btn-gold" id="new-gift"><svg><use href="#i-plus"/></svg> Novo</button>
+      </div>
+      <div id="gift-list" class="stock-list"></div>
+    </section>
+  </main>
+
+  <!-- Formulário de presente -->
+  <div class="sheet-backdrop" id="gift-sheet" aria-hidden="true">
+    <form class="sheet glass" id="gift-form" role="dialog" aria-modal="true" aria-labelledby="gift-form-title">
+      <div class="grabber"></div>
+      <h2 class="gold-text" id="gift-form-title">Novo presente</h2>
+      <input type="hidden" name="id">
+      <div class="field"><input name="name" placeholder=" " required maxlength="120"><label>Nome do presente</label></div>
+      <div class="field"><input name="description" placeholder=" " maxlength="240"><label>Descrição (opcional)</label></div>
+      <div class="field-row">
+        <div class="field"><input name="quantity" type="number" min="0" step="1" inputmode="numeric" placeholder=" " required><label>Quantidade</label></div>
+        <div class="field"><input name="price" type="number" min="0" step="0.01" inputmode="decimal" placeholder=" "><label>Valor (R$)</label></div>
+      </div>
+      <div class="field"><input name="imageUrl" type="url" placeholder=" "><label>Link da imagem (opcional)</label></div>
+      <div class="field"><input name="sortOrder" type="number" step="1" inputmode="numeric" placeholder=" "><label>Ordem na lista</label></div>
+      <p class="form-error" id="gift-error" role="alert"></p>
+      <div class="sheet-actions">
+        <button class="btn btn-gold" type="submit">Salvar</button>
+        <button class="btn btn-link danger" type="button" id="delete-gift" hidden>Excluir presente</button>
+        <button class="btn btn-link" type="button" id="cancel-gift">Cancelar</button>
+      </div>
+    </form>
+  </div>
+
+  <div class="toast glass" id="toast" role="status" aria-live="assertive"></div>
+
+  <script src="js/config.js"></script>
+  <script src="js/admin.js"></script>
+</body>
+</html>
