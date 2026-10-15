@@ -5,13 +5,11 @@ import { GIFT_COLUMNS } from '../gifts.js';
 function parseGift(data) {
   const name = String(data.name ?? '').trim();
   const description = String(data.description ?? '').trim();
-  const imageUrl = String(data.imageUrl ?? '').trim();
   const quantity = toInt(data.quantity);
   const sortOrder = toInt(data.sortOrder ?? 0);
   if (!name) throw new HttpError(400, 'Informe o nome do presente.');
   if (!(quantity >= 0)) throw new HttpError(400, 'Quantidade inválida.');
-  if (imageUrl && !/^https?:\/\//i.test(imageUrl)) throw new HttpError(400, 'A imagem deve ser um link http(s).');
-  return [name, description, imageUrl, quantity, Number.isNaN(sortOrder) ? 0 : sortOrder];
+  return [name, description, quantity, Number.isNaN(sortOrder) ? 0 : sortOrder];
 }
 
 function giftId(req) {
@@ -25,8 +23,8 @@ export default handler({
     requireAdmin(req);
     const db = await getDb();
     const { rows } = await db.query(
-      `insert into gifts (name, description, image_url, quantity, sort_order)
-       values ($1, $2, $3, $4, $5) returning ${GIFT_COLUMNS}`,
+      `insert into gifts (name, description, quantity, sort_order)
+       values ($1, $2, $3, $4) returning ${GIFT_COLUMNS}`,
       parseGift(body(req)),
     );
     return { gift: rows[0] };
@@ -38,9 +36,9 @@ export default handler({
     const db = await getDb();
     const values = parseGift(body(req));
     const { rows } = await db.query(
-      `update gifts set name = $2, description = $3, image_url = $4,
-              quantity = $5, sort_order = $6
-        where id = $1 and reserved <= $5
+      `update gifts set name = $2, description = $3,
+              quantity = $4, sort_order = $5
+        where id = $1 and reserved <= $4
         returning ${GIFT_COLUMNS}`,
       [id, ...values],
     );

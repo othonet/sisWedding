@@ -239,7 +239,6 @@
     F.name.value = gift?.name || '';
     F.description.value = gift?.description || '';
     F.quantity.value = gift?.quantity ?? 1;
-    F.imageUrl.value = gift?.imageUrl || '';
     F.sortOrder.value = gift?.sortOrder ?? (data.gifts.length + 1);
     $('#delete-gift').hidden = !gift;
     const list = gift ? choosersByGift().get(gift.id) || [] : [];
@@ -269,7 +268,6 @@
       name: F.name.value,
       description: F.description.value,
       quantity: Number(F.quantity.value),
-      imageUrl: F.imageUrl.value,
       sortOrder: Number(F.sortOrder.value || 0),
     };
     try {

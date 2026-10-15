@@ -2,8 +2,7 @@ import { getDb } from '../lib/db.js';
 import { handler } from '../lib/http.js';
 
 export const GIFT_COLUMNS = `
-  id, name, description, image_url as "imageUrl",
-  quantity, reserved, (quantity - reserved) as available, sort_order as "sortOrder"`;
+  id, name, description, quantity, reserved, (quantity - reserved) as available, sort_order as "sortOrder"`;
 
 export default handler({
   async GET() {

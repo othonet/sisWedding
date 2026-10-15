@@ -230,9 +230,6 @@
     const inCart = state.cart.get(g.id) || 0;
     const soldOut = g.available === 0;
     const multi = g.quantity > 1;
-    const media = g.imageUrl
-      ? `<img src="${esc(g.imageUrl)}" alt="" loading="lazy">`
-      : '<svg class="placeholder"><use href="#i-gift"/></svg>';
     const badge = soldOut
       ? '<span class="badge">Esgotado</span>'
       : multi
@@ -256,21 +253,23 @@
 
     return `
       <article class="gift glass ${inCart ? 'selected' : ''} ${soldOut && !inCart ? 'soldout' : ''}" style="animation-delay:${Math.min(index, 8) * 50}ms">
-        <div class="gift-media">
-          ${media}
-          <span class="check-mark"><svg><use href="#i-check"/></svg></span>
+        <div class="gift-head">
+          <span class="gift-seal" aria-hidden="true">
+            <svg class="seal-gift"><use href="#i-gift"/></svg>
+            <svg class="seal-check"><use href="#i-check"/></svg>
+          </span>
+          <div class="gift-title">
+            <h3>${esc(g.name)}</h3>
+            ${g.description ? `<p>${esc(g.description)}</p>` : ''}
+          </div>
           ${badge}
         </div>
-        <div class="gift-body">
-          <h3>${esc(g.name)}</h3>
-          ${g.description ? `<p>${esc(g.description)}</p>` : ''}
-          <div class="gift-foot">
-            <div class="stock">
-              ${multi ? `${plural(g.available, 'disponível', 'disponíveis')}` : soldOut ? 'Indisponível' : 'Disponível'}
-              ${multi ? `<div class="stock-bar"><span style="width:${pct}%"></span></div>` : ''}
-            </div>
-            ${control}
+        <div class="gift-foot">
+          <div class="stock">
+            ${multi ? `${plural(g.available, 'disponível', 'disponíveis')}` : soldOut ? 'Indisponível' : 'Disponível'}
+            ${multi ? `<div class="stock-bar"><span style="width:${pct}%"></span></div>` : ''}
           </div>
+          ${control}
         </div>
       </article>`;
   }

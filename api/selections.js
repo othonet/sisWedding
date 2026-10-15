@@ -3,10 +3,10 @@ import { handler, body, toInt, HttpError } from '../lib/http.js';
 
 export async function guestSelections(db, guestId) {
   const { rows } = await db.query(
-    `select g.id as "giftId", g.name, g.image_url as "imageUrl", sum(s.quantity)::int as quantity
+    `select g.id as "giftId", g.name, sum(s.quantity)::int as quantity
        from selections s join gifts g on g.id = s.gift_id
       where s.guest_id = $1
-      group by g.id, g.name, g.image_url
+      group by g.id, g.name
       order by min(s.created_at)`,
     [guestId],
   );
