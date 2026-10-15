@@ -52,17 +52,32 @@ export default handler({
     return { gift: rows[0] };
   },
 
+  // Exclui o presente. Se já foi escolhido por convidados, só exclui com
+  // ?force=1 — e nesse caso as escolhas dele também são removidas.
   async DELETE(req) {
     requireAdmin(req);
     const id = giftId(req);
+    const force = req.query.force === '1';
     const db = await getDb();
-    const { rows } = await db.query(
-      'delete from gifts where id = $1 and reserved = 0 returning id',
-      [id],
-    );
-    if (rows.length === 0) {
-      throw new HttpError(409, 'Este presente já foi escolhido por convidados. Cancele as escolhas antes de excluir.');
-    }
+    await db.transaction(async (tx) => {
+      const cur = await tx.query(
+        `select g.reserved, count(distinct s.guest_id)::int as guests
+           from gifts g left join selections s on s.gift_id = g.id
+          where g.id = $1 group by g.id`,
+        [id],
+      );
+      if (cur.rows.length === 0) throw new HttpError(404, 'Presente não encontrado.');
+      const { reserved, guests } = cur.rows[0];
+      if (reserved > 0 && !force) {
+        throw new HttpError(
+          409,
+          `Este presente já foi escolhido por ${guests} convidado${guests === 1 ? '' : 's'}.`,
+          { needsForce: true, guests },
+        );
+      }
+      await tx.query('delete from selections where gift_id = $1', [id]);
+      await tx.query('delete from gifts where id = $1', [id]);
+    });
     return { ok: true };
   },
 });

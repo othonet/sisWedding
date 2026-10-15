@@ -6,6 +6,10 @@ import { fileURLToPath, pathToFileURL } from 'node:url';
 import path from 'node:path';
 
 const root = path.dirname(fileURLToPath(import.meta.url));
+// Variáveis locais (ADMIN_PASSWORD, DATABASE_URL...) — o .env não vai para o git
+const envFile = path.join(root, '.env');
+if (existsSync(envFile)) process.loadEnvFile(envFile);
+
 const app = express();
 app.use(express.json());
 

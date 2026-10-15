@@ -4,9 +4,12 @@
   const W = window.WEDDING;
   const $ = (sel, el = document) => el.querySelector(sel);
   const $$ = (sel, el = document) => [...el.querySelectorAll(sel)];
-  const KEY = 'sisWedding.adminKey';
+  const KEY = 'sisWedding.adminSession';
 
-  let adminKey = sessionStorage.getItem(KEY) || '';
+  // Sessão: token assinado pelo servidor, válido por 12 horas
+  let session = null;
+  try { session = JSON.parse(localStorage.getItem(KEY) || 'null'); } catch { /* ignore */ }
+  if (!(session?.expiresAt > Date.now())) session = null;
   let data = { guests: [], gifts: [] };
   let timer;
 
@@ -31,15 +34,20 @@
   async function api(path, options = {}) {
     const res = await fetch(path, {
       ...options,
-      headers: { 'Content-Type': 'application/json', 'x-admin-key': adminKey },
+      headers: { 'Content-Type': 'application/json', Authorization: `Bearer ${session?.token || ''}` },
       body: options.body ? JSON.stringify(options.body) : undefined,
     });
     const body = await res.json().catch(() => ({}));
-    if (res.status === 401) {
+    if (res.status === 401 && session) {
       logout();
-      throw new Error(body.error || 'Senha inválida.');
+      $('#login-error').textContent = body.error || 'Sessão expirada. Entre novamente.';
     }
-    if (!res.ok) throw new Error(body.error || 'Erro ao comunicar com o servidor.');
+    if (!res.ok) {
+      const err = new Error(body.error || 'Erro ao comunicar com o servidor.');
+      err.status = res.status;
+      err.data = body;
+      throw err;
+    }
     return body;
   }
 
@@ -48,14 +56,22 @@
 
   $('#login-form').addEventListener('submit', async (e) => {
     e.preventDefault();
-    adminKey = $('#password').value;
+    const btn = e.submitter || $('#login-form button[type=submit]');
     $('#login-error').textContent = '';
+    btn.disabled = true;
     try {
+      session = await api('/api/admin/login', {
+        method: 'POST',
+        body: { username: $('#username').value, password: $('#password').value },
+      });
+      try { localStorage.setItem(KEY, JSON.stringify(session)); } catch { /* ignore */ }
+      $('#password').value = '';
       await load();
-      sessionStorage.setItem(KEY, adminKey);
       enter();
     } catch (err) {
       $('#login-error').textContent = err.message;
+    } finally {
+      btn.disabled = false;
     }
   });
 
@@ -67,8 +83,8 @@
   }
 
   function logout() {
-    adminKey = '';
-    sessionStorage.removeItem(KEY);
+    session = null;
+    try { localStorage.removeItem(KEY); } catch { /* ignore */ }
     clearInterval(timer);
     $('#dash-view').hidden = true;
     $('#login-view').hidden = false;
@@ -136,7 +152,25 @@
       : `<div class="empty glass">${q ? 'Nenhum resultado para a busca.' : 'Nenhum convidado ainda. Compartilhe o convite!'}</div>`;
   }
 
+  // Quem escolheu cada presente: giftId -> [{ name, quantity }]
+  function choosersByGift() {
+    const map = new Map();
+    for (const g of data.guests) {
+      for (const s of g.selections) {
+        const list = map.get(s.giftId) || [];
+        const name = `${g.firstName} ${g.lastName}`;
+        const prev = list.find((c) => c.name === name);
+        if (prev) prev.quantity += s.quantity; else list.push({ name, quantity: s.quantity });
+        map.set(s.giftId, list);
+      }
+    }
+    return map;
+  }
+  const choosersText = (list) => list
+    .map((c) => `${esc(c.name)}${c.quantity > 1 ? ` (${c.quantity})` : ''}`).join(', ');
+
   function renderGifts() {
+    const choosers = choosersByGift();
     $('#gift-list').innerHTML = data.gifts.length
       ? data.gifts.map((g) => {
         const pct = g.quantity ? Math.round((g.reserved / g.quantity) * 100) : 0;
@@ -147,6 +181,7 @@
             <span class="meta">${g.available === 0 ? 'Esgotado' : `${g.available} disponíve${g.available === 1 ? 'l' : 'is'}`}${g.price != null ? ` · ${brl(g.price)}` : ''}</span>
             <span></span>
             <div class="bar"><span style="width:${pct}%"></span></div>
+            ${choosers.has(g.id) ? `<span class="who">Escolhido por ${choosersText(choosers.get(g.id))}</span>` : ''}
           </button>`;
       }).join('')
       : '<div class="empty glass">Nenhum presente cadastrado.</div>';
@@ -209,6 +244,10 @@
     F.imageUrl.value = gift?.imageUrl || '';
     F.sortOrder.value = gift?.sortOrder ?? (data.gifts.length + 1);
     $('#delete-gift').hidden = !gift;
+    const list = gift ? choosersByGift().get(gift.id) || [] : [];
+    $('#gift-choosers').hidden = list.length === 0;
+    $('#gift-choosers ul').innerHTML = list
+      .map((c) => `<li><span class="qty">${c.quantity}×</span> ${esc(c.name)}</li>`).join('');
     sheet.classList.add('open');
     sheet.setAttribute('aria-hidden', 'false');
   }
@@ -248,17 +287,26 @@
 
   $('#delete-gift').addEventListener('click', async () => {
     const id = F.id.value;
-    if (!id || !confirm('Excluir este presente da lista?')) return;
-    try {
-      await api(`/api/admin/gifts?id=${id}`, { method: 'DELETE' });
+    if (!id || !confirm(`Excluir "${F.name.value}" da lista de presentes?`)) return;
+    const remove = async (force) => {
+      await api(`/api/admin/gifts?id=${id}${force ? '&force=1' : ''}`, { method: 'DELETE' });
       closeGift();
       await load();
       toast('Presente excluído.');
+    };
+    try {
+      await remove(false);
     } catch (err) {
-      $('#gift-error').textContent = err.message;
+      // Já escolhido por convidados: confirma de novo antes de apagar as escolhas
+      if (err.data?.needsForce
+        && confirm(`${err.message} Excluir mesmo assim? As escolhas desse presente também serão apagadas.`)) {
+        try { await remove(true); } catch (e2) { $('#gift-error').textContent = e2.message; }
+      } else if (!err.data?.needsForce) {
+        $('#gift-error').textContent = err.message;
+      }
     }
   });
 
   // Sessão já aberta nesta aba
-  if (adminKey) load().then(enter).catch(() => logout());
+  if (session) load().then(enter).catch(() => logout());
 })();

@@ -37,6 +37,10 @@
       <h1 class="title-script gold-text">Painel dos noivos</h1>
       <p class="subtitle">Acompanhe quem já confirmou e os presentes escolhidos.</p>
       <div class="field">
+        <input id="username" autocomplete="username" autocapitalize="none" spellcheck="false" placeholder=" " required>
+        <label for="username">Usuário</label>
+      </div>
+      <div class="field">
         <input id="password" type="password" autocomplete="current-password" placeholder=" " required>
         <label for="password">Senha</label>
       </div>
@@ -85,8 +89,8 @@
     <!-- Presentes -->
     <section class="tab-panel" id="tab-gifts" hidden>
       <div class="toolbar">
-        <p class="hint">Estoque da lista de desejos. Toque em um presente para editar.</p>
-        <button class="btn btn-gold" id="new-gift"><svg><use href="#i-plus"/></svg> Novo</button>
+        <p class="hint">Toque em um presente para editar ou excluir.</p>
+        <button class="btn btn-gold" id="new-gift"><svg><use href="#i-plus"/></svg> Novo presente</button>
       </div>
       <div id="gift-list" class="stock-list"></div>
     </section>
@@ -106,6 +110,10 @@
       </div>
       <div class="field"><input name="imageUrl" type="url" placeholder=" "><label>Link da imagem (opcional)</label></div>
       <div class="field"><input name="sortOrder" type="number" step="1" inputmode="numeric" placeholder=" "><label>Ordem na lista</label></div>
+      <div class="choosers" id="gift-choosers" hidden>
+        <h3>Quem já escolheu</h3>
+        <ul></ul>
+      </div>
       <p class="form-error" id="gift-error" role="alert"></p>
       <div class="sheet-actions">
         <button class="btn btn-gold" type="submit">Salvar</button>
