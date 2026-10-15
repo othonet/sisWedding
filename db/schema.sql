@@ -6,7 +6,6 @@ create table if not exists gifts (
   name        text not null,
   description text not null default '',
   image_url   text not null default '',
-  price       numeric(10,2),
   quantity    integer not null default 1 check (quantity >= 0),
   reserved    integer not null default 0 check (reserved >= 0),
   sort_order  integer not null default 0,
@@ -29,6 +28,9 @@ create table if not exists selections (
   quantity    integer not null check (quantity > 0),
   created_at  timestamptz not null default now()
 );
+
+-- O campo "valor" foi retirado do sistema; remove a coluna de bancos antigos.
+alter table gifts drop column if exists price;
 
 create index if not exists selections_guest_idx on selections(guest_id);
 create index if not exists selections_gift_idx on selections(gift_id);

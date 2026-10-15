@@ -2,7 +2,7 @@ import { getDb } from '../lib/db.js';
 import { handler } from '../lib/http.js';
 
 export const GIFT_COLUMNS = `
-  id, name, description, image_url as "imageUrl", price::float8 as price,
+  id, name, description, image_url as "imageUrl",
   quantity, reserved, (quantity - reserved) as available, sort_order as "sortOrder"`;
 
 export default handler({

@@ -66,7 +66,7 @@
       <div class="stat glass"><small>Convidados</small><b id="st-guests">–</b><span id="st-guests-sub"></span></div>
       <div class="stat glass"><small>Presentes escolhidos</small><b id="st-units">–</b><span id="st-units-sub"></span></div>
       <div class="stat glass"><small>Itens esgotados</small><b id="st-soldout">–</b><span id="st-soldout-sub"></span></div>
-      <div class="stat glass"><small>Valor estimado</small><b id="st-value">–</b><span>dos presentes escolhidos</span></div>
+      <div class="stat glass"><small>Ainda disponíveis</small><b id="st-free">–</b><span>unidades para escolher</span></div>
     </section>
 
     <nav class="tabs glass" role="tablist">
@@ -106,10 +106,9 @@
       <div class="field"><input name="description" placeholder=" " maxlength="240"><label>Descrição (opcional)</label></div>
       <div class="field-row">
         <div class="field"><input name="quantity" type="number" min="0" step="1" inputmode="numeric" placeholder=" " required><label>Quantidade</label></div>
-        <div class="field"><input name="price" type="number" min="0" step="0.01" inputmode="decimal" placeholder=" "><label>Valor (R$)</label></div>
+        <div class="field"><input name="sortOrder" type="number" step="1" inputmode="numeric" placeholder=" "><label>Ordem na lista</label></div>
       </div>
       <div class="field"><input name="imageUrl" type="url" placeholder=" "><label>Link da imagem (opcional)</label></div>
-      <div class="field"><input name="sortOrder" type="number" step="1" inputmode="numeric" placeholder=" "><label>Ordem na lista</label></div>
       <div class="choosers" id="gift-choosers" hidden>
         <h3>Quem já escolheu</h3>
         <ul></ul>

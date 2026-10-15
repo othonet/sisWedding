@@ -20,7 +20,6 @@
   const esc = (s) => String(s ?? '').replace(/[&<>"']/g, (c) => (
     { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]
   ));
-  const brl = (v) => v.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' });
   const plural = (n, one, many) => `${n} ${n === 1 ? one : many}`;
 
   async function api(path, options = {}) {
@@ -265,7 +264,6 @@
         <div class="gift-body">
           <h3>${esc(g.name)}</h3>
           ${g.description ? `<p>${esc(g.description)}</p>` : ''}
-          ${W.showPrices && g.price != null ? `<span class="price">${brl(g.price)}</span>` : ''}
           <div class="gift-foot">
             <div class="stock">
               ${multi ? `${plural(g.available, 'disponível', 'disponíveis')}` : soldOut ? 'Indisponível' : 'Disponível'}

@@ -16,7 +16,6 @@
   const esc = (s) => String(s ?? '').replace(/[&<>"']/g, (c) => (
     { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]
   ));
-  const brl = (v) => v.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' });
   const norm = (s) => s.normalize('NFD').replace(/\p{M}/gu, '').toLowerCase();
   const dateTime = (iso) => new Date(iso).toLocaleString('pt-BR', {
     day: '2-digit', month: '2-digit', hour: '2-digit', minute: '2-digit',
@@ -116,7 +115,7 @@
     const units = data.gifts.reduce((n, g) => n + g.reserved, 0);
     const total = data.gifts.reduce((n, g) => n + g.quantity, 0);
     const soldOut = data.gifts.filter((g) => g.quantity > 0 && g.available === 0).length;
-    const value = data.gifts.reduce((n, g) => n + (g.price || 0) * g.reserved, 0);
+    const free = data.gifts.reduce((n, g) => n + g.available, 0);
 
     $('#st-guests').textContent = data.guests.length;
     $('#st-guests-sub').textContent = `${withGifts} com presente confirmado`;
@@ -124,7 +123,7 @@
     $('#st-units-sub').textContent = `de ${total} unidades na lista`;
     $('#st-soldout').textContent = soldOut;
     $('#st-soldout-sub').textContent = `de ${data.gifts.length} itens`;
-    $('#st-value').textContent = brl(value);
+    $('#st-free').textContent = free;
   }
 
   function renderGuests() {
@@ -178,7 +177,7 @@
           <button class="stock-item glass ${g.available === 0 ? 'done' : ''}" data-edit="${g.id}">
             <h3>${esc(g.name)}</h3>
             <span class="count">${g.reserved} / ${g.quantity}</span>
-            <span class="meta">${g.available === 0 ? 'Esgotado' : `${g.available} disponíve${g.available === 1 ? 'l' : 'is'}`}${g.price != null ? ` · ${brl(g.price)}` : ''}</span>
+            <span class="meta">${g.available === 0 ? 'Esgotado' : `${g.available} disponíve${g.available === 1 ? 'l' : 'is'}`}</span>
             <span></span>
             <div class="bar"><span style="width:${pct}%"></span></div>
             ${choosers.has(g.id) ? `<span class="who">Escolhido por ${choosersText(choosers.get(g.id))}</span>` : ''}
@@ -240,7 +239,6 @@
     F.name.value = gift?.name || '';
     F.description.value = gift?.description || '';
     F.quantity.value = gift?.quantity ?? 1;
-    F.price.value = gift?.price ?? '';
     F.imageUrl.value = gift?.imageUrl || '';
     F.sortOrder.value = gift?.sortOrder ?? (data.gifts.length + 1);
     $('#delete-gift').hidden = !gift;
@@ -271,7 +269,6 @@
       name: F.name.value,
       description: F.description.value,
       quantity: Number(F.quantity.value),
-      price: F.price.value,
       imageUrl: F.imageUrl.value,
       sortOrder: Number(F.sortOrder.value || 0),
     };

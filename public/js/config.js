@@ -17,8 +17,6 @@ window.WEDDING = {
   },
   // Recado sobre o traje (aparece no convite e na tela de agradecimento)
   dressCode: 'Por gentileza, não venha de branco.',
-  // Mostrar o valor de referência dos presentes na lista
-  showPrices: false,
   thanksMessage:
     'Seu carinho fará parte do nosso novo lar. Mal podemos esperar para celebrar esse dia ao seu lado!',
 };
