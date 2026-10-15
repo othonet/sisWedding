@@ -328,10 +328,16 @@ a { color: var(--gold-light); }
   margin-top: 26px;
 }
 .invite-note {
-  margin: 14px 0 0;
-  font-size: 0.82rem;
-  color: var(--text-faint);
+  display: inline-block;
+  margin: 18px 0 0;
+  padding: 8px 16px;
+  border-radius: 999px;
+  border: 1px solid rgba(212, 175, 99, 0.5);
+  background: rgba(212, 175, 99, 0.1);
+  font-size: 0.88rem;
+  color: var(--gold-light);
 }
+.invite-note:empty { display: none; }
 
 /* ---------- Formulário de identificação ---------- */
 .panel {
@@ -761,7 +767,10 @@ a { color: var(--gold-light); }
   background: rgba(255, 255, 255, 0.06);
   border: 1px solid rgba(255, 255, 255, 0.12);
 }
-.lunch-card .full { grid-column: 1 / -1; }
+.lunch-card .full,
+.lunch-card .wide { grid-column: 1 / -1; }
+.lunch-card .dress { border-color: rgba(212, 175, 99, 0.45); background: rgba(212, 175, 99, 0.1); }
+.lunch-card .dress span { color: var(--gold-light); }
 .lunch-card small {
   display: block;
   font-size: 0.66rem;

@@ -28,7 +28,7 @@ dev-server.js      servidor local que imita a Vercel
 
 ## Personalizar
 
-Edite **`public/js/config.js`**: nomes dos noivos, data/hora, local, endereço (`mapQuery` é o que aparece no mapa), traje e mensagens. Os presentes podem ser cadastrados pelo painel `/admin` ou direto no `db/seed.sql`.
+Edite **`public/js/config.js`**: nomes do casal (`name1` e `name2`, na ordem do convite), data/hora, local, endereço (`mapQuery` é o que aparece no mapa), traje e mensagens. Os presentes podem ser cadastrados pelo painel `/admin` ou direto no `db/seed.sql`.
 
 ## Rodar localmente
 

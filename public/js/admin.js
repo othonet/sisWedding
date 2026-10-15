@@ -44,7 +44,7 @@
   }
 
   // ---------- Login ----------
-  $('#couple').textContent = `${W.bride} & ${W.groom}`;
+  $('#couple').textContent = `${W.name1} & ${W.name2}`;
 
   $('#login-form').addEventListener('submit', async (e) => {
     e.preventDefault();

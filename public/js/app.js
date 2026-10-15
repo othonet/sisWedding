@@ -64,14 +64,14 @@
   const fmt = (opts) => new Intl.DateTimeFormat('pt-BR', { timeZone: 'America/Sao_Paulo', ...opts }).format(when);
   const mapQuery = encodeURIComponent(W.venue.mapQuery || W.venue.address);
   const links = {
-    embed: `https://maps.google.com/maps?q=${mapQuery}&z=16&output=embed`,
+    embed: `https://maps.google.com/maps?q=${mapQuery}&z=15&output=embed`,
     gmaps: `https://www.google.com/maps/search/?api=1&query=${mapQuery}`,
     waze: `https://waze.com/ul?q=${mapQuery}&navigate=yes`,
   };
 
   const binds = {
-    bride: W.bride,
-    groom: W.groom,
+    name1: W.name1,
+    name2: W.name2,
     blessing: W.blessing,
     invitationText: W.invitationText,
     weekday: fmt({ weekday: 'long' }).replace('-feira', ''),
@@ -85,7 +85,8 @@
     thanksMessage: W.thanksMessage,
   };
   $$('[data-bind]').forEach((el) => { el.textContent = binds[el.dataset.bind] ?? ''; });
-  document.title = `${W.bride} & ${W.groom} — Convite de Casamento`;
+  document.title = `${W.name1} & ${W.name2} — Convite de Casamento`;
+  $('#dress-card').hidden = !W.dressCode;
   $('#invite-map-link').href = links.gmaps;
   $('#gmaps-link').href = links.gmaps;
   $('#waze-link').href = links.waze;
@@ -389,7 +390,7 @@
       'BEGIN:VCALENDAR', 'VERSION:2.0', 'PRODID:-//sisWedding//PT-BR', 'BEGIN:VEVENT',
       `UID:${stamp(start)}-siswedding@convite`, `DTSTAMP:${stamp(new Date())}`,
       `DTSTART:${stamp(start)}`, `DTEND:${stamp(end)}`,
-      `SUMMARY:${text(`Almoço de casamento — ${W.bride} & ${W.groom}`)}`,
+      `SUMMARY:${text(`Almoço de casamento — ${W.name1} & ${W.name2}`)}`,
       `LOCATION:${text(`${W.venue.name}, ${W.venue.address}`)}`,
       `DESCRIPTION:${text(links.gmaps)}`,
       'END:VEVENT', 'END:VCALENDAR',

@@ -101,7 +101,7 @@
         <div class="frame"></div>
         <svg class="bouquet" viewBox="0 0 240 320" role="img" aria-label="Buquê de copos de leite"><use href="#bouquet"/></svg>
         <p class="eyebrow" data-bind="blessing"></p>
-        <h1 class="names gold-text"><span data-bind="bride"></span><span class="amp">&amp;</span><span data-bind="groom"></span></h1>
+        <h1 class="names gold-text"><span data-bind="name1"></span><span class="amp">&amp;</span><span data-bind="name2"></span></h1>
         <p class="invite-text" data-bind="invitationText"></p>
 
         <div class="date-block">
@@ -203,6 +203,7 @@
             <div><small>Data</small><span data-bind="dateShort"></span></div>
             <div><small>Horário</small><span data-bind="time"></span></div>
             <div class="full"><small>Local</small><span data-bind="venueName"></span></div>
+            <div class="wide dress" id="dress-card"><small>Traje</small><span data-bind="dressCode"></span></div>
           </div>
           <div class="map-wrap">
             <iframe id="map-frame" title="Mapa do local do almoço" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
@@ -219,7 +220,7 @@
           <svg><use href="#i-gift"/></svg> Escolher mais presentes
         </button>
       </article>
-      <footer class="signature"><span data-bind="bride"></span> &amp; <span data-bind="groom"></span></footer>
+      <footer class="signature"><span data-bind="name1"></span> &amp; <span data-bind="name2"></span></footer>
     </section>
   </main>
 
