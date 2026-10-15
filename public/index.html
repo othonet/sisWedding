@@ -119,9 +119,9 @@
           <button class="btn btn-gold" data-go="identify">
             <svg><use href="#i-gift"/></svg> Lista de presentes
           </button>
-          <a class="btn btn-glass" id="invite-map-link" target="_blank" rel="noopener">
+          <button class="btn btn-glass" id="invite-map-btn" type="button">
             <svg><use href="#i-pin"/></svg> Ver o local
-          </a>
+          </button>
         </div>
         <p class="invite-note" data-bind="dressCode"></p>
       </article>
@@ -231,6 +231,25 @@
   </div>
 
   <!-- Confirmação -->
+  <!-- Mapa do local (aberto pelo botão "Ver o local" do convite) -->
+  <div class="sheet-backdrop" id="map-sheet" aria-hidden="true">
+    <div class="sheet glass" role="dialog" aria-modal="true" aria-labelledby="map-sheet-title">
+      <div class="grabber"></div>
+      <h2 class="gold-text" id="map-sheet-title" data-bind="venueName"></h2>
+      <p class="subtitle" data-bind="venueAddress"></p>
+      <div class="map-wrap">
+        <iframe id="invite-map-frame" title="Mapa do local do almoço" referrerpolicy="no-referrer-when-downgrade"></iframe>
+      </div>
+      <div class="map-actions">
+        <a class="btn btn-gold" id="sheet-gmaps-link" target="_blank" rel="noopener"><svg><use href="#i-pin"/></svg> Google Maps</a>
+        <a class="btn btn-glass" id="sheet-waze-link" target="_blank" rel="noopener"><svg><use href="#i-nav"/></svg> Waze</a>
+      </div>
+      <div class="sheet-actions" style="margin-top:8px">
+        <button class="btn btn-link" id="map-sheet-close" type="button">Fechar</button>
+      </div>
+    </div>
+  </div>
+
   <div class="sheet-backdrop" id="confirm-sheet" aria-hidden="true">
     <div class="sheet glass" role="dialog" aria-modal="true" aria-labelledby="confirm-title">
       <div class="grabber"></div>

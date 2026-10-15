@@ -87,7 +87,8 @@
   $$('[data-bind]').forEach((el) => { el.textContent = binds[el.dataset.bind] ?? ''; });
   document.title = `${W.name1} & ${W.name2} — Convite de Casamento`;
   $('#dress-card').hidden = !W.dressCode;
-  $('#invite-map-link').href = links.gmaps;
+  $('#sheet-gmaps-link').href = links.gmaps;
+  $('#sheet-waze-link').href = links.waze;
   $('#gmaps-link').href = links.gmaps;
   $('#waze-link').href = links.waze;
 
@@ -333,7 +334,27 @@
   $('#cart-continue').addEventListener('click', openSheet);
   $('#confirm-cancel').addEventListener('click', closeSheet);
   sheet.addEventListener('click', (e) => { if (e.target === sheet) closeSheet(); });
-  document.addEventListener('keydown', (e) => { if (e.key === 'Escape' && sheet.classList.contains('open')) closeSheet(); });
+  document.addEventListener('keydown', (e) => {
+    if (e.key !== 'Escape') return;
+    if (sheet.classList.contains('open')) closeSheet();
+    if (mapSheet.classList.contains('open')) closeMapSheet();
+  });
+
+  // ---------- Mapa do local (no convite) ----------
+  const mapSheet = $('#map-sheet');
+  function openMapSheet() {
+    const frame = $('#invite-map-frame');
+    if (!frame.src) frame.src = links.embed; // só carrega o mapa quando abrir
+    mapSheet.classList.add('open');
+    mapSheet.setAttribute('aria-hidden', 'false');
+  }
+  function closeMapSheet() {
+    mapSheet.classList.remove('open');
+    mapSheet.setAttribute('aria-hidden', 'true');
+  }
+  $('#invite-map-btn').addEventListener('click', openMapSheet);
+  $('#map-sheet-close').addEventListener('click', closeMapSheet);
+  mapSheet.addEventListener('click', (e) => { if (e.target === mapSheet) closeMapSheet(); });
 
   $('#confirm-btn').addEventListener('click', async () => {
     const btn = $('#confirm-btn');
